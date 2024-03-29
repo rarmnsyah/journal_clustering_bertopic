@@ -3,7 +3,7 @@ import time
 import spacy
 
 # from polyglot.detect import Detector # only can used in python 2.7 to 3.4 vers
-from langdetect import detect #981kb
+from langdetect import detect #981kb    
 
 
 DATASET = pd.read_excel('dataset/dataset_raw_deteksi_bahasa.xlsx')
