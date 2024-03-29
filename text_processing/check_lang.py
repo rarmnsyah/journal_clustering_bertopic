@@ -7,8 +7,6 @@ from transformers import pipeline
 from functools import wraps
 from langdetect import detect #981kb
 
-
-
 LOGGER = logging.getLogger(__name__)
 LOGGER.setLevel(logging.INFO)
 
@@ -30,7 +28,8 @@ def _return_empty_string_for_invalid_input(func):
             return func(*args, **kwargs)
     return wrapper
 
-pipe = pipeline("text-classification", model="jb2k/bert-base-multilingual-cased-language-detection")
+# pipe = pipeline("text-classification", model="jb2k/bert-base-multilingual-cased-language-detection")
+pipe = lambda x : x
 
 @_return_empty_string_for_invalid_input
 def lang_checker_bert(text):
@@ -44,7 +43,7 @@ def lang_checker_langdetect(text):
     try:
         detected_language = detect(text)
     except Exception as e:
-        print("An error occurred:", e)
+        print("An error occurred:", e, 'text : ', text[:15] )
         return None
     # end = time.time()
     # time_exec = end - start
