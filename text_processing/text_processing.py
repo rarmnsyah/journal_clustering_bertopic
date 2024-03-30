@@ -156,11 +156,11 @@ def preprocess_text(input_text: str, processing_function_list: Optional[List[Cal
         processed_text = ' '.join(input_text)
     return processed_text
 
-text = '''ABSTRACT
-Deficiency or excess intake during pregnancy can be harmful to the fetus. Nutrition and energy in pregnant women determine the health of the mother and fetus. The fetus depends on its mother, for breathing, growth and to protect it from disease. Energy needs of pregnant women increase by 15% for the growth of the uterus, breasts, blood volume, placenta, amniotic fluid and fetal growth. The food consumed by pregnant women is used for fetal growth by 40% while 60% for the mother. If the fulfillment of energy in pregnant women does not meet the needs, there will be disturbances in pregnancy for both the mother and the fetus. Therefore, a comprehensive knowledge of energy requirements during pregnancy is needed based on medical science.
-&nbsp;
-ABSTRAK
-Kekurangan atau kelebihan asupan pada masa hamil dapat berakibat kurang baik bagi janin. Nutrisi dan energi pada ibu hamil sangat menentukan kesehatan ibu dan janin yang dikandungnya. Janin sangat bergantung pada ibunya, mulai dari pernapasan, pertumbuhan dan untuk melindunginya dari penyakit. Kebutuhan energi ibu hamil meningkat 15% untuk pertumbuhan rahim, payudara, volume darah, plasenta, air ketuban dan pertumbuhan janin. Makanan yang dikonsumsi ibu hamil dipergunakan untuk pertumbuhan janin sebesar 40% sedangkan 60% untuk ibu. Apabila pemenuhan energi pada ibu hamil tidak sesuai dengan kebutuhan, maka akan terjadi gangguan dalam kehamilan baik kepada ibu dan janin yang dikandungnya. Oleh karena itu diperlukan pengetahuan yang komprehensif terhadap kebutuhan energi selama kehamilan berdasarkan ilmu kedokteran.
-'''
+# text = '''ABSTRACT
+# Deficiency or excess intake during pregnancy can be harmful to the fetus. Nutrition and energy in pregnant women determine the health of the mother and fetus. The fetus depends on its mother, for breathing, growth and to protect it from disease. Energy needs of pregnant women increase by 15% for the growth of the uterus, breasts, blood volume, placenta, amniotic fluid and fetal growth. The food consumed by pregnant women is used for fetal growth by 40% while 60% for the mother. If the fulfillment of energy in pregnant women does not meet the needs, there will be disturbances in pregnancy for both the mother and the fetus. Therefore, a comprehensive knowledge of energy requirements during pregnancy is needed based on medical science.
+# &nbsp;
+# ABSTRAK
+# Kekurangan atau kelebihan asupan pada masa hamil dapat berakibat kurang baik bagi janin. Nutrisi dan energi pada ibu hamil sangat menentukan kesehatan ibu dan janin yang dikandungnya. Janin sangat bergantung pada ibunya, mulai dari pernapasan, pertumbuhan dan untuk melindunginya dari penyakit. Kebutuhan energi ibu hamil meningkat 15% untuk pertumbuhan rahim, payudara, volume darah, plasenta, air ketuban dan pertumbuhan janin. Makanan yang dikonsumsi ibu hamil dipergunakan untuk pertumbuhan janin sebesar 40% sedangkan 60% untuk ibu. Apabila pemenuhan energi pada ibu hamil tidak sesuai dengan kebutuhan, maka akan terjadi gangguan dalam kehamilan baik kepada ibu dan janin yang dikandungnya. Oleh karena itu diperlukan pengetahuan yang komprehensif terhadap kebutuhan energi selama kehamilan berdasarkan ilmu kedokteran.
+# '''
 
-print(preprocess_text(text, [remove_abs_word, remove_nbsp, remove_punctuation, keep_alpha_numeric, remove_katakunci, remove_multilang]))
+# print(preprocess_text(text, [remove_abs_word, remove_nbsp, remove_punctuation, keep_alpha_numeric, remove_katakunci, remove_multilang]))
