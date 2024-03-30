@@ -6,7 +6,7 @@ import pycld2 as cld2
 from transformers import pipeline
 from functools import wraps
 from langdetect import detect #981kb
-from google_trans_new import google_translator  
+from deep_translator import GoogleTranslator
 
 LOGGER = logging.getLogger(__name__)
 LOGGER.setLevel(logging.INFO)
@@ -62,12 +62,13 @@ def lang_checker_pycld2(text):
     return detected_language
 
 @_return_empty_string_for_invalid_input
-def en_to_id(text, target_lang):
-    translator = google_translator()
-    translate_text = translator.translate(text,lang_src='en',lang_tgt=target_lang)
+def en_to_id(text, target_lang='id'):
+    translate_text = GoogleTranslator(source='auto', target='id').translate(text)
     return translate_text 
 
 
 @_return_empty_string_for_invalid_input
 def multi_lang_abs_checker(text):
     return re.search('([^a-zA-Z0-9_])+(Abstract|Abstrak)([^a-zA-Z0-9_])*', text) != None
+
+print(en_to_id('what do you thinking about this?'))
