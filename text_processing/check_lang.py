@@ -3,7 +3,7 @@ import logging
 import re
 import pycld2 as cld2
 
-from transformers import pipeline
+# from transformers import pipeline
 from functools import wraps
 from langdetect import detect #981kb
 from deep_translator import GoogleTranslator
@@ -70,5 +70,3 @@ def en_to_id(text, target_lang='id'):
 @_return_empty_string_for_invalid_input
 def multi_lang_abs_checker(text):
     return re.search('([^a-zA-Z0-9_])+(Abstract|Abstrak)([^a-zA-Z0-9_])*', text) != None
-
-print(en_to_id('what do you thinking about this?'))
