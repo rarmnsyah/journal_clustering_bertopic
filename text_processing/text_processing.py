@@ -51,14 +51,20 @@ def remove_number(input_text: str) -> str:
 
 @_return_empty_string_for_invalid_input
 def remove_nbsp(input_text: str) -> str:
-    """ Remove number in the input text """
+    """ Remove tag nbsp in the input text """
     processed_text = re.sub('&nbsp', '', input_text)
     return processed_text
 
 @_return_empty_string_for_invalid_input
+def remove_abs_word(input_text: str) -> str:
+    """ Remove abstract words in first sentence in the input text """
+    processed_text = re.sub('^(Abstrak|Abstract)', '', input_text)
+    return processed_text
+
+@_return_empty_string_for_invalid_input
 def remove_katakunci(input_text: str) -> str:
-    """ Remove number in the input text """
-    processed_text = re.sub('(Kata kunci : ).*', '', input_text)
+    """ Remove kata kunci if theres in the input text """
+    processed_text = re.sub('(Kata kunci).*', '', input_text)
     return processed_text
 
 # @_return_empty_string_for_invalid_input
