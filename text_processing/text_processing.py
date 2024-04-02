@@ -58,7 +58,7 @@ def remove_nbsp(input_text: str) -> str:
 @_return_empty_string_for_invalid_input
 def remove_abs_word(input_text: str) -> str:
     """ Remove abstract words in first sentence in the input text """
-    processed_text = re.sub('^(Abstrak|Abstract|ABSTRAK|ABSTRACT)', '', input_text)
+    processed_text = re.sub('^(Abstrak|Abstract|ABSTRAK|ABSTRACT)+', '', input_text)
     return processed_text
 
 @_return_empty_string_for_invalid_input
@@ -70,7 +70,7 @@ def remove_multilang(input_text: str) -> str:
 @_return_empty_string_for_invalid_input
 def remove_katakunci(input_text: str) -> str:
     """ Remove kata kunci if theres in the input text """
-    processed_text = re.sub('(Kata kunci|Keywords).*', '', input_text)
+    processed_text = re.sub('(Kata kunci|Keywords|Keyword).*', '', input_text)
     return processed_text
 
 # @_return_empty_string_for_invalid_input
