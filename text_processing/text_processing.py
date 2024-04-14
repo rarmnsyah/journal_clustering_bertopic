@@ -73,12 +73,6 @@ def remove_katakunci(input_text: str) -> str:
     processed_text = re.sub('(Kata kunci|Keywords|Keyword).*', '', input_text)
     return processed_text
 
-# @_return_empty_string_for_invalid_input
-# def remove_physics_sign(input_text: str) -> str:
-#     """ Remove number in the input text """
-#     processed_text = re.sub(' (.+\/.+) ', ' ', input_text)
-#     return processed_text
-
 @_return_empty_string_for_invalid_input
 def remove_itemized_bullet_and_numbering(input_text: str) -> str:
     """ Remove bullets or numbering in itemized input """
