@@ -73,6 +73,12 @@ def remove_katakunci(input_text: str) -> str:
     processed_text = re.sub('(Kata kunci|Keywords|Keyword).*', '', input_text)
     return processed_text
 
+# @_return_empty_string_for_invalid_input
+# def remove_physics_sign(input_text: str) -> str:
+#     """ Remove number in the input text """
+#     processed_text = re.sub(' (.+\/.+) ', ' ', input_text)
+#     return processed_text
+
 @_return_empty_string_for_invalid_input
 def remove_itemized_bullet_and_numbering(input_text: str) -> str:
     """ Remove bullets or numbering in itemized input """
@@ -120,6 +126,11 @@ def remove_email(input_text: str) -> str:
     regex_pattern = '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}'
     return re.sub(regex_pattern, '', input_text)
 
+@_return_empty_string_for_invalid_input
+def remove_tag(input_text: str) -> str:
+    """ Remove email in the input text """
+    CLEANR = re.compile('<.*?>|&([a-z0-9]+|#[0-9]{1,6}|#x[0-9a-f]{1,6});')
+    return re.sub(CLEANR, '', input_text)
 
 @_return_empty_string_for_invalid_input
 def remove_phone_number(input_text: str) -> str:
@@ -127,21 +138,54 @@ def remove_phone_number(input_text: str) -> str:
     regex_pattern = '(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?'
     return re.sub(regex_pattern, '', input_text)
 
+@_return_empty_string_for_invalid_input
+def bersihkan_abstrak(input_text: str) -> str:
+    """Clean abstract text by removing keywords, special characters, and non-alphanumeric characters."""
+    input_text = input_text.lower()
+    # Split text based on "ABSTRAK" or "Abstract" to get the abstract section
+    bagian_abstrak = re.split(r'abstrak|abstract', input_text)[-1].strip()
+
+    # Split the resulting text by '\n', '.' to get individual lines
+    lines = re.split(r'\n|\.\s|\.', bagian_abstrak)
+
+    # Remove lines containing keywords "Kata kunci" or "kata kunci:"
+    cleaned_lines = [line for line in lines if not line.startswith('kata kunci')]
+
+    # Join the cleaned lines back into a single string
+    cleaned_abstract = ' '.join(cleaned_lines).strip()
+
+    # Remove '&nbsp;' from the text
+    # cleaned_abstract = cleaned_abstract.replace("&nbsp;", '')
+
+    # # Remove special characters from the text
+    # cleaned_abstract = cleaned_abstract.translate(str.maketrans('', '', 'å¼«¥ª°©ð±§µæ¹¢³¿β®äâ£'))
+
+    # # Keep only alphanumeric characters
+    # cleaned_abstract = re.sub(r'[^ \w+]', '', cleaned_abstract)
+
+    # # Remove numbers from the text
+    # cleaned_abstract = re.sub('\d+', '', cleaned_abstract)
+
+    # Find the position of the keyword "kata kunci"
+    keyword_position = cleaned_abstract.find('kata kunci')
+    
+    # If the keyword is found, remove text after it
+    if keyword_position != -1:
+        cleaned_abstract = cleaned_abstract[:keyword_position]
+
+    return cleaned_abstract
+
 def preprocess_text(input_text: str, processing_function_list: Optional[List[Callable]] = None) -> str:
     """ Preprocess an input text by executing a series of preprocessing functions specified in functions list """
     if processing_function_list is None:
-        processing_function_list = [to_lower,
-                                    remove_url,
-                                    remove_email,
-                                    # remove_physics_sign,
-                                    remove_nbsp,
-                                    remove_phone_number,
-                                    remove_number,
-                                    remove_itemized_bullet_and_numbering,
-                                    remove_special_character,
-                                    remove_punctuation,
-                                    keep_alpha_numeric,
-                                    remove_whitespace]
+        processing_function_list = [
+            remove_tag,
+            bersihkan_abstrak,
+            remove_nbsp,
+            remove_special_character,
+            keep_alpha_numeric,
+            remove_number
+        ]
     for func in processing_function_list:
         input_text = func(input_text)
     if isinstance(input_text, str):
@@ -150,11 +194,3 @@ def preprocess_text(input_text: str, processing_function_list: Optional[List[Cal
         processed_text = ' '.join(input_text)
     return processed_text
 
-# text = '''ABSTRACT
-# Deficiency or excess intake during pregnancy can be harmful to the fetus. Nutrition and energy in pregnant women determine the health of the mother and fetus. The fetus depends on its mother, for breathing, growth and to protect it from disease. Energy needs of pregnant women increase by 15% for the growth of the uterus, breasts, blood volume, placenta, amniotic fluid and fetal growth. The food consumed by pregnant women is used for fetal growth by 40% while 60% for the mother. If the fulfillment of energy in pregnant women does not meet the needs, there will be disturbances in pregnancy for both the mother and the fetus. Therefore, a comprehensive knowledge of energy requirements during pregnancy is needed based on medical science.
-# &nbsp;
-# ABSTRAK
-# Kekurangan atau kelebihan asupan pada masa hamil dapat berakibat kurang baik bagi janin. Nutrisi dan energi pada ibu hamil sangat menentukan kesehatan ibu dan janin yang dikandungnya. Janin sangat bergantung pada ibunya, mulai dari pernapasan, pertumbuhan dan untuk melindunginya dari penyakit. Kebutuhan energi ibu hamil meningkat 15% untuk pertumbuhan rahim, payudara, volume darah, plasenta, air ketuban dan pertumbuhan janin. Makanan yang dikonsumsi ibu hamil dipergunakan untuk pertumbuhan janin sebesar 40% sedangkan 60% untuk ibu. Apabila pemenuhan energi pada ibu hamil tidak sesuai dengan kebutuhan, maka akan terjadi gangguan dalam kehamilan baik kepada ibu dan janin yang dikandungnya. Oleh karena itu diperlukan pengetahuan yang komprehensif terhadap kebutuhan energi selama kehamilan berdasarkan ilmu kedokteran.
-# '''
-
-# print(preprocess_text(text, [remove_abs_word, remove_nbsp, remove_punctuation, keep_alpha_numeric, remove_katakunci, remove_multilang]))

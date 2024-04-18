@@ -5,3 +5,5 @@
 /src
 /oai_sickle_response
 *.xlsx
+*.json
+*.csv
